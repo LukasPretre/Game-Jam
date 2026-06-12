@@ -3,17 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-<<<<<<< Updated upstream
   tags:
   - Water
-=======
-  tags: []
->>>>>>> Stashed changes
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - 
@@ -41,7 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - Player
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
