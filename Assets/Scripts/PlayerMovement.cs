@@ -45,20 +45,58 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed = 0f;
     public BoxCollider2D leftWallCollider;
     public BoxCollider2D rightWallCollider;
+    public float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
 
-    void Update()
+
+
+
+
+
+
+
+
+
+void Update()
     {
         horizontalMovement = Input.GetAxis("Horizontal");
         isSprinting = Input.GetKey(KeyCode.LeftShift);
+
+
+
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
 
         if (oxygenManager != null)
         {
             oxygenManager.ManageOxygen(rb.linearVelocity.magnitude);
         }
 
-        if (Input.GetButtonDown("Jump") && (isGrounded || (isOnWall && !isGrounded)))
+        if (Input.GetButtonDown("Jump"))
         {
-            isJumping = true;
+            // Jump au sol
+            if (isGrounded)
+            {
+                isJumping = true;
+                coyoteTimeCounter = 0f;
+            }
+            // Jump en l'air avec coyote time
+            else if (coyoteTimeCounter > 0f)
+            {
+                isJumping = true;
+                coyoteTimeCounter = 0f;
+            }
+            // Wall jump
+            else if (isOnWall && !isGrounded)
+            {
+                isJumping = true;
+            }
         }
 
         // Lancer la corde avec V
@@ -185,6 +223,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = newVelocity;
 
         // 7. Gestion des sauts
+        // 7. Gestion des sauts
         if (isJumping)
         {
             if (isGrounded)
@@ -199,6 +238,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector2(wallJumpX, jumpForce), ForceMode2D.Impulse);
                 currentSpeed = wallJumpX;
                 isOnWall = false;
+            }
+            else // COYOTE JUMP - c'était manquant !
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             }
             isJumping = false;
         }
