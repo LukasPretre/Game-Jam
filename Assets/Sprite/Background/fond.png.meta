@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 67cc79a4451144749ac7245d92dbfa0a
-=======
-guid: 438ba7dc10cad2b498bca6272f74a608
->>>>>>> origin/main
+guid: eb2ce046a357e7947b3747f49af9cf1b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2791666142150966509
-    second: jumping3_0
+      213: -7585009627398372457
+    second: fond_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -104,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jumping3_0
+      name: fond_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 2
-        width: 30
-        height: 59
+        x: 0
+        y: 0
+        width: 962
+        height: 1592
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: decb46eb09dfdb620800000000000000
-      internalID: 2791666142150966509
+      spriteID: 79380055ee1acb690800000000000000
+      internalID: -7585009627398372457
       vertices: []
       indices: 
       edges: []
@@ -129,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 787fdff304d110a48b41e1ace5700790
     internalID: 0
     vertices: []
     indices: 
@@ -139,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      jumping3_0: 2791666142150966509
+      fond_0: -7585009627398372457
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

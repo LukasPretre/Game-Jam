@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
         horizontalMovement = Input.GetAxis("Horizontal");
         isSprinting = Input.GetKey(KeyCode.LeftShift);
 
-        // Mise à jour de l'oxygène basée sur la vitesse
         if (oxygenManager != null)
         {
             oxygenManager.ManageOxygen(rb.linearVelocity.magnitude);
@@ -62,12 +61,32 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.V)) LaunchRope();
-        if (Input.GetKeyDown(KeyCode.R)) LaunchGrapple();
+        // Lancer la corde avec V
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            LaunchRope();
+        }
 
+        // --- MODIFICATION ICI : Vérification de la possession du grappin ---
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (GameManager.instance != null && GameManager.instance.itemGrappin_Ramasse)
+            {
+                LaunchGrapple();
+            }
+            else
+            {
+                Debug.Log("Vous n'avez pas encore récupéré le grappin !");
+            }
+        }
+
+        // --- MODIFICATION ICI : Vérification pour l'activation ---
         if (Input.GetKeyDown(KeyCode.T) && grappling != null && grappling.IsPlanted())
         {
-            isGrappling = true;
+            if (GameManager.instance != null && GameManager.instance.itemGrappin_Ramasse)
+            {
+                isGrappling = true;
+            }
         }
 
         Flip(rb.linearVelocity.x);

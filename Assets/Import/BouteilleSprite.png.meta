@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 67cc79a4451144749ac7245d92dbfa0a
-=======
-guid: 438ba7dc10cad2b498bca6272f74a608
->>>>>>> origin/main
+guid: c564ce08530845e4eba5a41bb0fc5057
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2791666142150966509
-    second: jumping3_0
+      213: -6463329798340690607
+    second: BouteilleSprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -41,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jumping3_0
+      name: BouteilleSprite_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 2
-        width: 30
-        height: 59
+        x: 4
+        y: 0
+        width: 19
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: decb46eb09dfdb620800000000000000
-      internalID: 2791666142150966509
+      spriteID: 15db4b7eac3ad46a0800000000000000
+      internalID: -6463329798340690607
       vertices: []
       indices: 
       edges: []
@@ -139,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      jumping3_0: 2791666142150966509
+      BouteilleSprite_0: -6463329798340690607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
