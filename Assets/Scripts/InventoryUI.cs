@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventaireUI : MonoBehaviour
 {
@@ -10,35 +9,39 @@ public class InventaireUI : MonoBehaviour
         public Sprite sprite;
     }
 
-    [SerializeField] private Transform containerItems;
-    [SerializeField] private GameObject prefabItemUI;
     [SerializeField] private ItemInventaire[] listeItems;
+    [SerializeField] private float espaceEntreItems = 1.5f;
 
     private void Start()
     {
-        RefreshInventaire();
-        GameManager.OnInventaireChanged += RefreshInventaire;
+        GameManager.OnInventaireChanged += AfficherInventaire;
+        AfficherInventaire();
     }
 
-    private void RefreshInventaire()
+    private void AfficherInventaire()
     {
-        // Vide le conteneur en partant du dernier enfant
-        while (containerItems.childCount > 0)
+        // Détruit les anciens
+        foreach (Transform child in transform)
         {
-            DestroyImmediate(containerItems.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
 
-        // Ajoute les items possédés
+        // Crée les nouveaux
+        float posX = 7f;
         foreach (ItemInventaire item in listeItems)
         {
             if (EstPossede(item.nomItem))
             {
-                GameObject newItem = Instantiate(prefabItemUI, containerItems);
-                Image img = newItem.GetComponent<Image>();
-                if (img != null) img.sprite = item.sprite;
+                GameObject newItem = new GameObject(item.nomItem);
+                newItem.transform.parent = transform;
+                newItem.transform.position = new Vector3(posX, 4.5f, 0);
+                newItem.transform.localScale = Vector3.one * 0.5f;
 
-                Text txt = newItem.GetComponentInChildren<Text>();
-                if (txt != null) txt.text = item.nomItem;
+                SpriteRenderer sr = newItem.AddComponent<SpriteRenderer>();
+                sr.sprite = item.sprite;
+                sr.sortingOrder = 100;
+
+                posX += espaceEntreItems;
             }
         }
     }
