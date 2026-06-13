@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 097e18d1d96c272498b1b18a6047c073
+=======
 guid: 4a57e31c28758bf4697da15716dfa610
+>>>>>>> origin/main
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +107,17 @@ TextureImporter:
       name: walking1_0
       rect:
         serializedVersion: 2
+<<<<<<< HEAD
+        x: 3
+        y: 4
+        width: 27
+        height: 57
+=======
         x: 2
         y: 0
         width: 27
         height: 56
+>>>>>>> origin/main
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
