@@ -210,9 +210,9 @@ GameObject:
   - component: {fileID: 350738840}
   - component: {fileID: 350738839}
   - component: {fileID: 350738838}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap_sol
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4109,13 +4109,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1497002185165110840, guid: b846b274485545f4080494e31e18faea, type: 3}
+      propertyPath: collisionLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2648316628188482270, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.16182
+      value: 2.1795778
       objectReference: {fileID: 0}
     - target: {fileID: 2648316628188482270, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.89182
+      value: 1.8917899
       objectReference: {fileID: 0}
     - target: {fileID: 2760828159801015427, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: oxygenBar
