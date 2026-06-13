@@ -11632,11 +11632,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1101783570183231659, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.77
+      value: -35.49
       objectReference: {fileID: 0}
     - target: {fileID: 1101783570183231659, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.4
+      value: 6.22
       objectReference: {fileID: 0}
     - target: {fileID: 1101783570183231659, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11672,11 +11672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2648316628188482270, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000038146973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2648316628188482270, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4754467
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2760828159801015427, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: maxOxygen
@@ -11697,6 +11697,18 @@ PrefabInstance:
     - target: {fileID: 6902742832652485962, guid: b846b274485545f4080494e31e18faea, type: 3}
       propertyPath: UpdateMethod
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111585490324124630, guid: b846b274485545f4080494e31e18faea, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111585490324124630, guid: b846b274485545f4080494e31e18faea, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111585490324124630, guid: b846b274485545f4080494e31e18faea, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12393,7 +12405,6 @@ GameObject:
   - component: {fileID: 1982312624}
   - component: {fileID: 1982312623}
   - component: {fileID: 1982312622}
-  - component: {fileID: 1982312621}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -12401,26 +12412,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1982312621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1982312620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner2D
-  BoundingShape2D: {fileID: 457278213}
-  Damping: 0
-  SlowingDistance: 5
-  OversizeWindow:
-    Enabled: 0
-    MaxWindowSize: 0
-    Padding: 0
-  m_LegacyMaxWindowSize: -2
 --- !u!114 &1982312622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12445,7 +12436,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 0, z: 0}
+  TargetOffset: {x: 0, y: 5.5, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
     Enabled: 0
@@ -12504,7 +12495,7 @@ Transform:
   m_GameObject: {fileID: 1982312620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.77, y: 14.4, z: -10}
+  m_LocalPosition: {x: -35.49, y: 11.719999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
