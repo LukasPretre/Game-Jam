@@ -98,4 +98,16 @@ public class OxygenManager : MonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(activeScene.name);
     }
+
+    public void LoseOxygen(float damageAmount)
+    {
+        currentOxygen -= damageAmount;
+        Debug.Log("Le kamtar a touché un ver, on perd " + damageAmount + " d'oxygène !");
+
+        if (currentOxygen <= 0)
+        {
+            currentOxygen = 0;
+            Die();
+        }
+    }
 }
