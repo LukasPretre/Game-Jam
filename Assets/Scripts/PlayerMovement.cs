@@ -40,13 +40,18 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMovement;
     private float currentSpeed = 0f;
 
+    [Header("Sprint Settings")]
+    public float sprintMultiplier = 1.7f; // Multiplie la vitesse par 1.7
+    private bool isSprinting = false;
+
     void Update()
     {
         horizontalMovement = Input.GetAxis("Horizontal");
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
+
         if (Input.GetButtonDown("Jump") && (isGrounded || (isOnWall && !isGrounded)))
         {
             isJumping = true;
-            Debug.Log("Jump - isGrounded: " + isGrounded + " isOnWall: " + isOnWall);
         }
 
         // Lancer la corde avec V
@@ -55,38 +60,20 @@ public class PlayerMovement : MonoBehaviour
             LaunchRope();
         }
 
-        // NOUVEAU - Lancer le grappin avec R
+        // Lancer le grappin avec R
         if (Input.GetKeyDown(KeyCode.R))
         {
             LaunchGrapple();
         }
 
-        // NOUVEAU - Accrocher avec T
-        if (Input.GetKey(KeyCode.T) && grappling.IsPlanted() && !isGrounded)
+        // NOUVEAU - Accrocher avec T : Déclenchement unique
+        if (Input.GetKeyDown(KeyCode.T) && grappling.IsPlanted())
         {
             isGrappling = true;
-            grapplingTimer += Time.deltaTime;
-            Debug.Log("Grappling! Timer: " + grapplingTimer);
-
-            // Détachement auto après 3 secondes
-            if (grapplingTimer >= 3f)
-            {
-                isGrappling = false;
-                grapplingTimer = 0f;
-                grappling.RetractGrapple();
-                Debug.Log("Grappin détaché automatiquement!");
-            }
-        }
-        else
-        {
-            if (Input.GetKeyUp(KeyCode.T))
-            {
-                isGrappling = false;
-                grapplingTimer = 0f;
-                Debug.Log("Grappin libéré");
-            }
+            Debug.Log("Grappling activé !");
         }
 
+        // Flip et Animation
         Flip(rb.linearVelocity.x);
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
     }
@@ -141,9 +128,17 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer(float _horizontalMovement)
     {
+        // Calcul de la vitesse cible (avec sprint)
+        float targetSpeed = _horizontalMovement * moveSpeed;
+        if (isSprinting && _horizontalMovement != 0)
+        {
+            targetSpeed *= sprintMultiplier;
+        }
+
+        // Interpolation de la vitesse horizontale
         if (_horizontalMovement != 0)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, _horizontalMovement * moveSpeed, acceleration * Time.fixedDeltaTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {
@@ -152,19 +147,30 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 newVelocity = new Vector2(currentSpeed, rb.linearVelocity.y);
 
-        // NOUVEAU - Traction du grappin
+        // Traction du grappin
         if (isGrappling && grappling.IsPlanted())
         {
-            Vector3 directionToGrapple = (grappling.GetGrapplePosition() - transform.position).normalized;
-            Vector2 grapplePull = (Vector2)directionToGrapple * grappleForce;
-            rb.AddForce(grapplePull, ForceMode2D.Force);
+            Vector3 grapplePos = grappling.GetGrapplePosition();
+            Vector3 directionToGrapple = (grapplePos - transform.position).normalized;
 
-            // Pas de chute en grappling
-            newVelocity.y = 0;
-            Debug.Log("Grapple Pull!");
+            // Arrêt automatique quand on est proche du point
+            if (Vector3.Distance(transform.position, grapplePos) < 1.0f)
+            {
+                isGrappling = false;
+                grappling.RetractGrapple();
+            }
+            else
+            {
+                // Appliquer la force de traction
+                Vector2 grapplePull = (Vector2)directionToGrapple * grappleForce;
+                rb.AddForce(grapplePull, ForceMode2D.Force);
+
+                // Annulation de la gravité pour une traction plus fluide
+                newVelocity.y = rb.linearVelocity.y > 0 ? rb.linearVelocity.y : 0;
+            }
         }
 
-        // Contrainte rope
+        // Contrainte corde (Swing)
         if (rope.IsPlanted())
         {
             Vector3 ropePos = rope.GetRopePosition();
@@ -175,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
             if (distanceToRope >= rope.maxRopeLength)
             {
                 Vector3 directionFromRope = -directionToRope;
-
                 float velocityAwayFromRope = Vector2.Dot(newVelocity, (Vector2)directionFromRope);
 
                 if (velocityAwayFromRope > 0.01f)
@@ -191,11 +196,10 @@ public class PlayerMovement : MonoBehaviour
 
                 Vector2 tensionForce = (Vector2)directionFromRope * swingForce;
                 rb.AddForce(tensionForce, ForceMode2D.Force);
-
-                Debug.Log("Swing! Distance: " + distanceToRope);
             }
         }
 
+        // Gestion du Wall Slide
         if (isOnWall && !isGrounded && rb.linearVelocity.y < 0)
         {
             newVelocity.y = -wallSlideSpeed;
@@ -203,27 +207,22 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = newVelocity;
 
+        // Gestion des sauts
         if (isJumping)
         {
             if (isGrounded)
             {
-                Debug.Log("Saut SOL");
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             }
             else if (isOnWall && !isGrounded)
             {
-                Debug.Log("Saut MUR - Direction: " + wallSide);
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
                 float wallJumpX = wallJumpForceX * wallSide;
                 rb.AddForce(new Vector2(wallJumpX, jumpForce), ForceMode2D.Impulse);
-
                 currentSpeed = wallJumpX;
-
                 isOnWall = false;
             }
-
             isJumping = false;
         }
     }

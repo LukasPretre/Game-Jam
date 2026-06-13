@@ -24,11 +24,12 @@ public class Grappling : MonoBehaviour
     {
         if (isMoving && !isPlanted)
         {
-            grapplePos += grappleDirection * grappleSpeed * Time.deltaTime;
-            grapplingDistance = Vector3.Distance(playerTransform.position, grapplePos);
+            // 1. Calculer la position future
+            Vector3 nextPos = grapplePos + (grappleDirection * grappleSpeed * Time.deltaTime);
 
-            // Vérifie si le grappin touche un mur
-            RaycastHit2D hit = Physics2D.Raycast(playerTransform.position, grappleDirection, grappleSpeed * Time.deltaTime, grapplingCollisionLayers);
+            // 2. Faire un Raycast entre la position actuelle et la future position
+            float distToNext = Vector3.Distance(grapplePos, nextPos);
+            RaycastHit2D hit = Physics2D.Raycast(grapplePos, grappleDirection, distToNext, grapplingCollisionLayers);
 
             if (hit.collider != null)
             {
@@ -37,11 +38,16 @@ public class Grappling : MonoBehaviour
                     grapplePos = hit.point;
                     isPlanted = true;
                     isMoving = false;
-                    Debug.Log("Grappin planté sur: " + hit.collider.name + " à " + grapplePos);
                 }
             }
+            else
+            {
+                // 3. Si pas de collision, on avance la position
+                grapplePos = nextPos;
+            }
 
-            // Limite la distance
+            grapplingDistance = Vector3.Distance(playerTransform.position, grapplePos);
+
             if (grapplingDistance > 30f)
             {
                 RetractGrapple();

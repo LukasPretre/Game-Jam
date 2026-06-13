@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4900813536786427747}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.504381, y: -0.457, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -297,8 +297,9 @@ MonoBehaviour:
   rope: {fileID: 534803723036421940}
   swingForce: 15
   swingDamping: 0.95
-  grappling: {fileID: 0}
-  grappleForce: 25
+  grappling: {fileID: 4083134358321118238}
+  grappleForce: 1000
+  sprintMultiplier: 1.7
 --- !u!70 &7041616768982169795
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
