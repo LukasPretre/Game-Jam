@@ -87,16 +87,77 @@ Tilemap:
   m_GameObject: {fileID: 5860575742873669888}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -4, y: -1, z: 0}
+<<<<<<< Updated upstream
+  - first: {x: -4, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
+      m_TileIndex: 10
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -3, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 11
+      m_TileSpriteIndex: 11
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -2, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -1, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 13
+      m_TileSpriteIndex: 13
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 0, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 14
+      m_TileSpriteIndex: 14
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 15
+      m_TileSpriteIndex: 15
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -4, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 2
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741827
   - first: {x: -3, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -117,7 +178,23 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1342177279
+=======
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
+>>>>>>> Stashed changes
   - first: {x: -1, y: -1, z: 0}
+=======
+  - first: {x: -18, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -15, y: 0, z: 0}
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
     second:
       serializedVersion: 2
       m_TileIndex: 5
@@ -134,6 +211,16 @@ Tilemap:
       m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 16
+      m_TileSpriteIndex: 16
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
@@ -209,7 +296,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 80d932d5c0a7cde44916cd71eea28ad6, type: 2}
   - serializedVersion: 2
     m_RefCount: 1
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
     m_Data: {fileID: 11400000, guid: 891ddb5fb3ee3894bb1aef8e9aef3485, type: 2}
+<<<<<<< Updated upstream
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 62736ce6fa86aff4ab5784867e93921f, type: 2}
@@ -219,12 +308,42 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 38c873e26060bd14a9274e5248ae904b, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 941cc9bbc0f06d245ac69f6616a6d05a, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 26700aad1b9ecfa48a82784a26ec8179, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: bb7b71f801594fd4cb291b89745c51d8, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 247ff10059de5034da9dfb6a0e26ed78, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 96930b546338646458cedd67aad44b0e, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 9c18998a102c15b4ea93c601093015f8, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 8eacb8449e7d28449a10e8a8c21d01fa, type: 2}
+=======
+=======
+    m_Data: {fileID: 11400000, guid: 0064e6f85d6eb4c40b22483f44b69728, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: ec5c32835b397f5428781741369e9dca, type: 2}
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
+>>>>>>> Stashed changes
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: 3099361915311029316, guid: ee8cf883198c93a428be979791f36680, type: 3}
   - serializedVersion: 2
     m_RefCount: 1
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
     m_Data: {fileID: -1638331539, guid: b08eba7e9cd643a42b1a96a694d517b5, type: 3}
   - serializedVersion: 2
     m_RefCount: 1
@@ -250,9 +369,40 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: 8284592128738373919, guid: ecd65668754a2d64da470cc15af6548d, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 5579852799383586104, guid: 341ccb45b8180e94dad5e4d45e8df132, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 2667259123900411664, guid: 8d156f371c0abdd499652d7454274909, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 7559895275762610035, guid: 95fb7f2e49e9afd47a9b067bd5992039, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 7943806499148273905, guid: 658b8989939c6804fb1f0d65ba549c48, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: -7315556117031262810, guid: c0278799f29448441aa500da9a13a880, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: -5537483507035573525, guid: f147eb66285444049ba6c50a8e93ca43, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 3248475685536221975, guid: 906f1b025908afb46acd821ea195afc7, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 9
+<<<<<<< Updated upstream
+    m_RefCount: 15
+=======
+    m_RefCount: 7
+=======
+    m_Data: {fileID: -3870605726972270717, guid: 0fb668d81ed3acc4a9542fbf4d2eb4f4, type: 3}
+  m_TileMatrixArray:
+  - serializedVersion: 2
+    m_RefCount: 6
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
+>>>>>>> Stashed changes
     m_Data:
       e00: 1
       e01: 0
@@ -289,18 +439,55 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: -0.25
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 9
+<<<<<<< Updated upstream
+    m_RefCount: 16
+=======
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
+    m_RefCount: 6
+=======
+    m_RefCount: 5
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
+>>>>>>> Stashed changes
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - serializedVersion: 2
     m_RefCount: 1
-    m_Data: {r: 0.0199715, g: 0.45425123, b: 0.9622642, a: 1}
+    m_Data: {r: 0.13565677, g: 0.45616853, b: 0.82641506, a: 0}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -4, y: -1, z: 0}
-  m_Size: {x: 6, y: 2, z: 1}
+<<<<<<< Updated upstream
+  m_Origin: {x: -4, y: -3, z: 0}
+  m_Size: {x: 6, y: 4, z: 1}
+=======
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
+  m_Origin: {x: -3, y: -1, z: 0}
+  m_Size: {x: 5, y: 2, z: 1}
+=======
+  m_Origin: {x: -18, y: 0, z: 0}
+  m_Size: {x: 7, y: 2, z: 1}
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
+>>>>>>> Stashed changes
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -376,7 +563,60 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
---- !u!114 &8501831843190488709
+<<<<<<< Updated upstream
+--- !u!114 &9096090893997313531
+=======
+<<<<<<< Updated upstream:Assets/Import/Palette zone 1.prefab
+--- !u!114 &4480836840900968050
+=======
+--- !u!1 &4873078085178765765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3176753487732671954}
+  - component: {fileID: 115306569133056857}
+  m_Layer: 0
+  m_Name: New Tile Palette
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3176753487732671954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873078085178765765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8262919120496527118}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!156049354 &115306569133056857
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873078085178765765}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
+--- !u!114 &8413438944752426552
+>>>>>>> Stashed changes:Assets/Import/New Tile Palette.prefab
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
