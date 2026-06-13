@@ -127,7 +127,7 @@ public class OxygenManager : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         Debug.Log("Le kamtar a plus d'air");
         RespawnPlayer();
