@@ -9,6 +9,10 @@ public class OxygenManager : MonoBehaviour
     private float currentOxygen;
     private bool isInWatter = false;
 
+    [Header("Bonus d'amélioration")]
+    public float oxygenUpgradeAmount = 10f;
+    private bool isUpgraded = false;
+
     [Header("Vitesse de recharge de l'oxygene")]
     public float rechargeSpeed = 5f;
 
@@ -40,6 +44,24 @@ public class OxygenManager : MonoBehaviour
             oxygenBar.minValue = 0f;
             oxygenBar.maxValue = maxOxygen;
             oxygenBar.value = maxOxygen;
+        }
+    }
+
+    void Update()
+    {
+        // Si l'item a été ramassé, on augmente l'oxygène
+        if (GameManager.instance != null && GameManager.instance.itemBouteille_Ramasse && !isUpgraded)
+        {
+            isUpgraded = true;
+            maxOxygen += oxygenUpgradeAmount;
+            currentOxygen += oxygenUpgradeAmount;
+
+            if (oxygenBar != null)
+            {
+                oxygenBar.maxValue = maxOxygen;
+                oxygenBar.value = currentOxygen;
+            }
+            Debug.Log("Oxygène max augmenté !");
         }
     }
 
