@@ -50,19 +50,10 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-void Update()
+    void Update()
     {
         horizontalMovement = Input.GetAxis("Horizontal");
         isSprinting = Input.GetKey(KeyCode.LeftShift);
-
-
 
         if (isGrounded)
         {
@@ -105,7 +96,6 @@ void Update()
             LaunchRope();
         }
 
-        // --- MODIFICATION ICI : Vérification de la possession du grappin ---
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (GameManager.instance != null && GameManager.instance.itemGrappin_Ramasse)
@@ -118,7 +108,6 @@ void Update()
             }
         }
 
-        // --- MODIFICATION ICI : Vérification pour l'activation ---
         if (Input.GetKeyDown(KeyCode.T) && grappling != null && grappling.IsPlanted())
         {
             if (GameManager.instance != null && GameManager.instance.itemGrappin_Ramasse)
@@ -128,7 +117,19 @@ void Update()
         }
 
         Flip(rb.linearVelocity.x);
-        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+
+        // LOGS POUR DEBUG
+        float speedValue = Mathf.Abs(rb.linearVelocity.x);
+        Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
+
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", speedValue);
+        }
+        else
+        {
+            Debug.LogError("ANIMATOR EST NULL !");
+        }
     }
 
     void FixedUpdate()
@@ -222,14 +223,13 @@ void Update()
 
         rb.linearVelocity = newVelocity;
 
-        // 7. Gestion des sauts
-        // 7. Gestion des sauts
         if (isJumping)
         {
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                
             }
             else if (isOnWall && !isGrounded)
             {
@@ -238,13 +238,33 @@ void Update()
                 rb.AddForce(new Vector2(wallJumpX, jumpForce), ForceMode2D.Impulse);
                 currentSpeed = wallJumpX;
                 isOnWall = false;
+                
             }
-            else // COYOTE JUMP - c'était manquant !
+            else // COYOTE JUMP
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                
             }
             isJumping = false;
+        }
+
+        // Remet Alt à false quand il touche le sol
+        if (isGrounded)
+        {
+            animator.SetBool("Alt", false);
+        }
+        else 
+        {
+            animator.SetBool("Alt", true);
+            if (rb.linearVelocityY > 0)
+            {
+                animator.SetTrigger("Jump");
+            }
+            else
+            {
+                animator.SetTrigger("Fall");
+            }
         }
     }
 
