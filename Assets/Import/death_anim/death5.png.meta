@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 1298538200b410945af7e61503e3b032
+guid: 610fd767ec83da84f99a0f2075c7ae38
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2303993417643020868
-    second: quoi_0
+      213: 7780676303263872721
+    second: death5_0
+  - first:
+      213: 2180787477179758218
+    second: death5_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: quoi_0
+      name: death5_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 601
-        height: 994
+        width: 58
+        height: 19
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cbdac8891329600e0800000000000000
-      internalID: -2303993417643020868
+      spriteID: 1d6b750cfd38afb60800000000000000
+      internalID: 7780676303263872721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death5_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 19
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a867bebf7a6b34e10800000000000000
+      internalID: 2180787477179758218
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3a9a5d8ccf62d04439651670388357cf
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      quoi_0: -2303993417643020868
+      death5_0: 7780676303263872721
+      death5_1: 2180787477179758218
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

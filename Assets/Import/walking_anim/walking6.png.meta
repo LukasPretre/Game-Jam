@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1298538200b410945af7e61503e3b032
+guid: 01e268eff258f314e9e42359fc3e6222
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2303993417643020868
-    second: quoi_0
+      213: 7711267039009182823
+    second: walking6_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: quoi_0
+      name: walking6_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 601
-        height: 994
+        x: 3
+        y: 4
+        width: 27
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cbdac8891329600e0800000000000000
-      internalID: -2303993417643020868
+      spriteID: 7641254148ce30b60800000000000000
+      internalID: 7711267039009182823
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3a9a5d8ccf62d04439651670388357cf
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      quoi_0: -2303993417643020868
+      walking6_0: 7711267039009182823
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
