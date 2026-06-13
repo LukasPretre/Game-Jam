@@ -26,6 +26,9 @@ public class OxygenManager : MonoBehaviour
     public Vector3 respawnPosition;
     private Rigidbody2D rb;
 
+    private Animator anim;
+    public bool isDying = false;
+
     void Start()
     {
         if (oxygenBar == null)
@@ -51,6 +54,7 @@ public class OxygenManager : MonoBehaviour
             oxygenBar.maxValue = maxOxygen;
             oxygenBar.value = maxOxygen;
         }
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -129,8 +133,56 @@ public class OxygenManager : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Le kamtar a plus d'air");
-        RespawnPlayer();
+        // Si on est déjà en train de mourir, on annule pour pas relancer l'animation en boucle
+        if (isDying) return;
+
+        isDying = true;
+        Debug.Log("Lancement de l'animation de mort...");
+
+        // 1. On coupe la physique pour que le joueur fige sur place (il ne tombe plus)
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false; // Désactive totalement les collisions et la gravité
+        }
+
+        // 2. On lance l'animation de mort
+        if (anim != null)
+        {
+            anim.SetTrigger("isDead");
+        }
+
+        // 3. On lance le chrono avant de réapparaître !
+        StartCoroutine(RespawnRoutine());
+    }
+    private System.Collections.IEnumerator RespawnRoutine()
+    {
+        // On dit au jeu d'attendre 1 seconde (modifie ce chiffre selon la durée de ton animation !)
+        yield return new WaitForSeconds(1f);
+
+        // --- LE TEMPS EST ÉCOULÉ, ON RESPAWN ---
+
+        // On recharge l'oxygène
+        currentOxygen = maxOxygen;
+        if (oxygenBar != null) oxygenBar.value = maxOxygen;
+
+        // On téléporte le joueur
+        transform.position = respawnPosition;
+
+        // On rallume la physique
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+
+        // On remet l'animation normale (retour à Idle)
+        if (anim != null)
+        {
+            anim.SetTrigger("isRespawn");
+        }
+
+        // On autorise le joueur à mourir de nouveau
+        isDying = false;
     }
 
     public void LoseOxygen(float damageAmount)
