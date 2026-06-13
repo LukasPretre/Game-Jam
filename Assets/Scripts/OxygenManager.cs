@@ -18,6 +18,20 @@ public class OxygenManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        if (oxygenBar == null)
+        {
+            GameObject sliderTrouve = GameObject.Find("Slider");
+
+            if (sliderTrouve != null)
+            {
+                oxygenBar = sliderTrouve.GetComponent<Slider>();
+            }
+            else
+            {
+                Debug.LogError("j'ai pas trouvé la barre d'oxygène !");
+            }
+        }
         currentOxygen = maxOxygen;
 
         if (oxygenBar != null)

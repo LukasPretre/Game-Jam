@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 585517039372946855}
   - component: {fileID: 150239204776618723}
   - component: {fileID: 5314374293882249641}
+  - component: {fileID: 2760828159801015427}
   m_Layer: 31
   m_Name: Player 1
   m_TagString: Player
@@ -220,7 +221,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -463,6 +464,7 @@ GameObject:
   - component: {fileID: 9111585490324124630}
   - component: {fileID: 5373124696746309191}
   - component: {fileID: 8916715604274025723}
+  - component: {fileID: 6902742832652485962}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -479,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 7540922219007667884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.504381, y: 0.457, z: -10}
+  m_LocalPosition: {x: 2.16182, y: 1.89182, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -520,7 +522,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.8223696
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -689,5 +691,58 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2737195769437758202, guid: ba1c06a7253df24498eb85f3ba81c927, type: 3}
       insertIndex: -1
       addedObject: {fileID: 869357809055958827}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6786442362582254274, guid: ba1c06a7253df24498eb85f3ba81c927, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2760828159801015427}
+    - targetCorrespondingSourceObject: {fileID: 7720742670519018935, guid: ba1c06a7253df24498eb85f3ba81c927, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6902742832652485962}
   m_SourcePrefab: {fileID: 100100000, guid: ba1c06a7253df24498eb85f3ba81c927, type: 3}
+--- !u!114 &2760828159801015427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900813536786427747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeee5db0c31e074a842772fac9b7348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OxygenManager
+  maxOxygen: 10
+  rechargeSpeed: 5
+  oxygenBar: {fileID: 0}
+--- !u!114 &6902742832652485962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540922219007667884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBrain
+  ShowDebugText: 0
+  ShowCameraFrustum: 1
+  IgnoreTimeScale: 0
+  WorldUpOverride: {fileID: 0}
+  ChannelMask: -1
+  UpdateMethod: 0
+  BlendUpdateMethod: 1
+  LensModeOverride:
+    Enabled: 0
+    DefaultMode: 2
+  DefaultBlend:
+    Style: 1
+    Time: 2
+    CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  CustomBlends: {fileID: 0}
