@@ -25,15 +25,20 @@ public class PlayerMovement : MonoBehaviour
     public BoxCollider2D leftWallCollider;
     public BoxCollider2D rightWallCollider;
 
-    // NOUVEAU - Rope
+    // Rope
     public Rope rope;
-    public float swingForce = 15f; // NOUVEAU - force du swing (à ajuster dans l'inspecteur)
+    public float swingForce = 15f;
+    public float swingDamping = 0.95f;
+
+    // NOUVEAU - Grappling
+    public Grappling grappling;
+    public float grappleForce = 25f; // Force de traction vers le grappin
+    private float grapplingTimer = 0f; // Timer de détachement auto (3 secondes)
+    private bool isGrappling = false;
 
     private Vector3 velocity = Vector3.zero;
     private float horizontalMovement;
     private float currentSpeed = 0f;
-
-    public float swingDamping = 0.95f; // Friction du swing (ajuste dans l'inspecteur: 0.90 à 0.98)
 
     void Update()
     {
@@ -44,14 +49,45 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Jump - isGrounded: " + isGrounded + " isOnWall: " + isOnWall);
         }
 
-        // NOUVEAU - Lancer la corde avec V
+        // Lancer la corde avec V
         if (Input.GetKeyDown(KeyCode.V))
         {
             LaunchRope();
         }
 
+        // NOUVEAU - Lancer le grappin avec R
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            LaunchGrapple();
+        }
+
+        // NOUVEAU - Accrocher avec T
+        if (Input.GetKey(KeyCode.T) && grappling.IsPlanted() && !isGrounded)
+        {
+            isGrappling = true;
+            grapplingTimer += Time.deltaTime;
+            Debug.Log("Grappling! Timer: " + grapplingTimer);
+
+            // Détachement auto après 3 secondes
+            if (grapplingTimer >= 3f)
+            {
+                isGrappling = false;
+                grapplingTimer = 0f;
+                grappling.RetractGrapple();
+                Debug.Log("Grappin détaché automatiquement!");
+            }
+        }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.T))
+            {
+                isGrappling = false;
+                grapplingTimer = 0f;
+                Debug.Log("Grappin libéré");
+            }
+        }
+
         Flip(rb.linearVelocity.x);
-        // MODIFIÉ - sans HasParameter
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
     }
 
@@ -62,12 +98,19 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer(horizontalMovement);
     }
 
-    // NOUVEAU - Lancer la corde
     void LaunchRope()
     {
         Vector3 ropeDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
         Debug.Log("LaunchRope appelé, direction: " + ropeDirection);
         rope.LaunchRope(ropeDirection);
+    }
+
+    // NOUVEAU - Lancer le grappin
+    void LaunchGrapple()
+    {
+        Vector3 grappleDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
+        Debug.Log("LaunchGrapple appelé, direction: " + grappleDirection);
+        grappling.LaunchGrapple(grappleDirection);
     }
 
     void DetectWalls()
@@ -109,7 +152,19 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 newVelocity = new Vector2(currentSpeed, rb.linearVelocity.y);
 
-        // MODIFIÉ - contrainte de distance avec swing amélioré
+        // NOUVEAU - Traction du grappin
+        if (isGrappling && grappling.IsPlanted())
+        {
+            Vector3 directionToGrapple = (grappling.GetGrapplePosition() - transform.position).normalized;
+            Vector2 grapplePull = (Vector2)directionToGrapple * grappleForce;
+            rb.AddForce(grapplePull, ForceMode2D.Force);
+
+            // Pas de chute en grappling
+            newVelocity.y = 0;
+            Debug.Log("Grapple Pull!");
+        }
+
+        // Contrainte rope
         if (rope.IsPlanted())
         {
             Vector3 ropePos = rope.GetRopePosition();
@@ -121,28 +176,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3 directionFromRope = -directionToRope;
 
-                // Calcule la vélocité qui s'éloigne de la corde
                 float velocityAwayFromRope = Vector2.Dot(newVelocity, (Vector2)directionFromRope);
 
-                // Si tu t'éloignes, on l'annule
                 if (velocityAwayFromRope > 0.01f)
                 {
                     newVelocity -= (Vector2)directionFromRope * velocityAwayFromRope;
                 }
 
-                // NOUVEAU - Calcule la composante TANGENTIELLE (le long du swing)
                 Vector3 tangentDirection = Vector3.Cross(directionFromRope, Vector3.forward).normalized;
                 float tangentialVelocity = Vector2.Dot(newVelocity, (Vector2)tangentDirection);
 
-                // Applique la friction UNIQUEMENT au mouvement tangentiel
                 tangentialVelocity *= swingDamping;
                 newVelocity = (Vector2)tangentDirection * tangentialVelocity;
 
-                // Applique la force de swing
                 Vector2 tensionForce = (Vector2)directionFromRope * swingForce;
                 rb.AddForce(tensionForce, ForceMode2D.Force);
 
-                Debug.Log("Swing! Distance: " + distanceToRope + " | TangentialVel: " + tangentialVelocity);
+                Debug.Log("Swing! Distance: " + distanceToRope);
             }
         }
 
@@ -163,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (isOnWall && !isGrounded)
             {
-         
+                Debug.Log("Saut MUR - Direction: " + wallSide);
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
 
                 float wallJumpX = wallJumpForceX * wallSide;
