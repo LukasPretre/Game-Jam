@@ -1,7 +1,11 @@
+using System.Linq;
 using UnityEngine;
+
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float acceleration = 15f;
+    public float deceleration = 10f;
     public bool isJumping;
     public float jumpForce;
     public float wallJumpForceX;
@@ -16,22 +20,38 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
-    // À drag-drop dans l'inspecteur
+    public float wallSlideSpeed = 2f;
+
     public BoxCollider2D leftWallCollider;
     public BoxCollider2D rightWallCollider;
 
+    // NOUVEAU - Rope
+    public Rope rope;
+    public float swingForce = 15f; // NOUVEAU - force du swing (à ajuster dans l'inspecteur)
+
     private Vector3 velocity = Vector3.zero;
     private float horizontalMovement;
+    private float currentSpeed = 0f;
+
+    public float swingDamping = 0.95f; // Friction du swing (ajuste dans l'inspecteur: 0.90 à 0.98)
 
     void Update()
     {
-        horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime;
+        horizontalMovement = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && (isGrounded || (isOnWall && !isGrounded)))
         {
             isJumping = true;
             Debug.Log("Jump - isGrounded: " + isGrounded + " isOnWall: " + isOnWall);
         }
+
+        // NOUVEAU - Lancer la corde avec V
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            LaunchRope();
+        }
+
         Flip(rb.linearVelocity.x);
+        // MODIFIÉ - sans HasParameter
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
     }
 
@@ -40,6 +60,14 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
         DetectWalls();
         MovePlayer(horizontalMovement);
+    }
+
+    // NOUVEAU - Lancer la corde
+    void LaunchRope()
+    {
+        Vector3 ropeDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
+        Debug.Log("LaunchRope appelé, direction: " + ropeDirection);
+        rope.LaunchRope(ropeDirection);
     }
 
     void DetectWalls()
@@ -70,8 +98,60 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer(float _horizontalMovement)
     {
-        Vector3 targetVelocity = new Vector2(_horizontalMovement, rb.linearVelocity.y);
-        rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref velocity, .05f);
+        if (_horizontalMovement != 0)
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, _horizontalMovement * moveSpeed, acceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, 0, deceleration * Time.fixedDeltaTime);
+        }
+
+        Vector2 newVelocity = new Vector2(currentSpeed, rb.linearVelocity.y);
+
+        // MODIFIÉ - contrainte de distance avec swing amélioré
+        if (rope.IsPlanted())
+        {
+            Vector3 ropePos = rope.GetRopePosition();
+            Vector3 playerPos = transform.position;
+            Vector3 directionToRope = (ropePos - playerPos).normalized;
+            float distanceToRope = Vector3.Distance(playerPos, ropePos);
+
+            if (distanceToRope >= rope.maxRopeLength)
+            {
+                Vector3 directionFromRope = -directionToRope;
+
+                // Calcule la vélocité qui s'éloigne de la corde
+                float velocityAwayFromRope = Vector2.Dot(newVelocity, (Vector2)directionFromRope);
+
+                // Si tu t'éloignes, on l'annule
+                if (velocityAwayFromRope > 0.01f)
+                {
+                    newVelocity -= (Vector2)directionFromRope * velocityAwayFromRope;
+                }
+
+                // NOUVEAU - Calcule la composante TANGENTIELLE (le long du swing)
+                Vector3 tangentDirection = Vector3.Cross(directionFromRope, Vector3.forward).normalized;
+                float tangentialVelocity = Vector2.Dot(newVelocity, (Vector2)tangentDirection);
+
+                // Applique la friction UNIQUEMENT au mouvement tangentiel
+                tangentialVelocity *= swingDamping;
+                newVelocity = (Vector2)tangentDirection * tangentialVelocity;
+
+                // Applique la force de swing
+                Vector2 tensionForce = (Vector2)directionFromRope * swingForce;
+                rb.AddForce(tensionForce, ForceMode2D.Force);
+
+                Debug.Log("Swing! Distance: " + distanceToRope + " | TangentialVel: " + tangentialVelocity);
+            }
+        }
+
+        if (isOnWall && !isGrounded && rb.linearVelocity.y < 0)
+        {
+            newVelocity.y = -wallSlideSpeed;
+        }
+
+        rb.linearVelocity = newVelocity;
 
         if (isJumping)
         {
@@ -83,11 +163,17 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (isOnWall && !isGrounded)
             {
-                Debug.Log("Saut MUR - Direction: " + wallSide);
-                rb.linearVelocity = Vector2.zero;
-                rb.AddForce(new Vector2(wallJumpForceX * wallSide, jumpForce), ForceMode2D.Impulse);
+         
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+
+                float wallJumpX = wallJumpForceX * wallSide;
+                rb.AddForce(new Vector2(wallJumpX, jumpForce), ForceMode2D.Impulse);
+
+                currentSpeed = wallJumpX;
+
                 isOnWall = false;
             }
+
             isJumping = false;
         }
     }
