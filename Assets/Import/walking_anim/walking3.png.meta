@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 93773ce9f1ec27d49bceac82276e7c5c
+=======
+guid: 83fbc78987404a84d9f460516fc3c9e0
+>>>>>>> origin/main
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -104,9 +108,15 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
+<<<<<<< HEAD
         y: 3
         width: 29
         height: 58
+=======
+        y: 0
+        width: 29
+        height: 56
+>>>>>>> origin/main
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
