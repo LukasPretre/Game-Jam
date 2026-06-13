@@ -23,6 +23,9 @@ public class OxygenManager : MonoBehaviour
     [Header("Interface Graphique UI")]
     public Slider oxygenBar;
 
+    public Vector3 respawnPosition;
+    private Rigidbody2D rb;
+
     void Start()
     {
         if (oxygenBar == null)
@@ -38,6 +41,9 @@ public class OxygenManager : MonoBehaviour
             }
         }
         currentOxygen = maxOxygen;
+        rb = GetComponent<Rigidbody2D>();
+
+        respawnPosition = transform.position;
 
         if (oxygenBar != null)
         {
@@ -124,8 +130,7 @@ public class OxygenManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("Le kamtar a plus d'air");
-        Scene activeScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(activeScene.name);
+        RespawnPlayer();
     }
 
     public void LoseOxygen(float damageAmount)
@@ -137,6 +142,31 @@ public class OxygenManager : MonoBehaviour
         {
             currentOxygen = 0;
             Die();
+        }
+    }
+
+    // Appelée par l'étang quand le joueur le touche
+    public void UpdateCheckpoint(Vector3 newCheckpointPosition)
+    {
+        respawnPosition = newCheckpointPosition;
+        Debug.Log("Point de sauvegarde mis à jour !");
+    }
+
+    void RespawnPlayer()
+    {
+        // 1. On recharge l'oxygène à fond
+        currentOxygen = maxOxygen;
+        if (oxygenBar != null) oxygenBar.value = maxOxygen;
+
+        // 2. On téléporte le joueur au dernier étang débloqué
+        transform.position = respawnPosition;
+
+        // 3. TRÈS IMPORTANT : On coupe la vitesse du joueur.
+        // Sinon, s'il est mort en tombant super vite, il réapparaîtra à l'étang en tombant à la même vitesse !
+        if (rb != null)
+        {
+            // Note pour Unity 6 : on utilise linearVelocity au lieu de velocity
+            rb.linearVelocity = Vector2.zero;
         }
     }
 }
