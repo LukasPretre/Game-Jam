@@ -272,16 +272,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b08bdaedf369194b8ca25eaef448012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  oxygenManager: {fileID: 2760828159801015427}
+  rb: {fileID: 5151706009162036822}
+  animator: {fileID: 5314374293882249641}
+  spriteRenderer: {fileID: 973835123449108614}
+  groundCheck: {fileID: 2526285294713955316}
+  rope: {fileID: 534803723036421940}
+  grappling: {fileID: 4083134358321118238}
   moveSpeed: 20
+  minSpeedBonus: 1
+  maxSpeedBonus: 2
+  sprintMultiplier: 1.7
   acceleration: 5
   deceleration: 2
-  isJumping: 0
   jumpForce: 10
   wallJumpForceX: 30
-  isGrounded: 1
-  isOnWall: 0
-  wallSide: 50
-  groundCheck: {fileID: 2526285294713955316}
+  wallSlideSpeed: 2
   groundCheckRadius: 0.4
   collisionLayers:
     serializedVersion: 2
@@ -289,18 +295,11 @@ MonoBehaviour:
   wallLayers:
     serializedVersion: 2
     m_Bits: 8
-  rb: {fileID: 5151706009162036822}
-  animator: {fileID: 5314374293882249641}
-  spriteRenderer: {fileID: 973835123449108614}
-  wallSlideSpeed: 2
-  leftWallCollider: {fileID: 150239204776618723}
-  rightWallCollider: {fileID: 585517039372946855}
-  rope: {fileID: 534803723036421940}
   swingForce: 15
   swingDamping: 0.95
-  grappling: {fileID: 4083134358321118238}
   grappleForce: 1000
-  sprintMultiplier: 1.7
+  leftWallCollider: {fileID: 150239204776618723}
+  rightWallCollider: {fileID: 585517039372946855}
 --- !u!70 &7041616768982169795
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -713,6 +712,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OxygenManager
   maxOxygen: 10
   rechargeSpeed: 5
+  baseConsumption: 1
+  velocityImpact: 0.05
   oxygenBar: {fileID: 0}
 --- !u!114 &6902742832652485962
 MonoBehaviour:

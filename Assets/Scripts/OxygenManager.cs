@@ -12,17 +12,18 @@ public class OxygenManager : MonoBehaviour
     [Header("Vitesse de recharge de l'oxygene")]
     public float rechargeSpeed = 5f;
 
+    [Header("Consommation basée sur la vitesse")]
+    public float baseConsumption = 1f;
+    public float velocityImpact = 0.05f;
+
     [Header("Interface Graphique UI")]
     public Slider oxygenBar;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         if (oxygenBar == null)
         {
             GameObject sliderTrouve = GameObject.Find("Slider");
-
             if (sliderTrouve != null)
             {
                 oxygenBar = sliderTrouve.GetComponent<Slider>();
@@ -42,15 +43,14 @@ public class OxygenManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Cette fonction est appelée par le PlayerMovement à chaque frame
+    public void ManageOxygen(float playerSpeed)
     {
-        // si on est pas dans l'eau -> ca baisse
+        // si on est pas dans l'eau -> ca baisse en fonction de la vitesse
         if (!isInWatter)
         {
-            currentOxygen -= Time.deltaTime;
-
-            Debug.Log("Oxygene actuel : " + currentOxygen);
+            float consumption = baseConsumption + (playerSpeed * velocityImpact);
+            currentOxygen -= consumption * Time.deltaTime;
 
             if (currentOxygen <= 0)
             {
@@ -63,15 +63,22 @@ public class OxygenManager : MonoBehaviour
         {
             currentOxygen += rechargeSpeed * Time.deltaTime;
 
-            if(currentOxygen > maxOxygen)
+            if (currentOxygen > maxOxygen)
             {
                 currentOxygen = maxOxygen;
             }
         }
-        if(oxygenBar != null)
+
+        if (oxygenBar != null)
         {
             oxygenBar.value = currentOxygen;
         }
+    }
+
+    // Retourne un ratio entre 0 et 1 pour le PlayerMovement
+    public float GetOxygenRatio()
+    {
+        return currentOxygen / maxOxygen;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
