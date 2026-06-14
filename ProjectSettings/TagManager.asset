@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Water
   - Wall
+  - grab
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Wall
   - Water
   - UI
-  - 
+  - grab
   - 
   - 
   - 
