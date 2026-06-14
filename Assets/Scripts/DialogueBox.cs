@@ -14,10 +14,9 @@ public class DialogueBox : MonoBehaviour
 
     private int index;
 
-    void Start()
+    void Awake()
     {
         textComponent.text = string.Empty;
-        gameObject.SetActive(false);
 
         // MODIFIÉ - vérifie les images assignées
         if (characterImages != null)
