@@ -85,28 +85,27 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            // 1. Standard Ground Jump
+            // Jump au sol
             if (isGrounded)
             {
                 isJumping = true;
                 hasJumpedSinceGrounded = true;
                 coyoteTimeCounter = 0f;
             }
-            // 2. Coyote Time Jump (Falling slightly off a ledge without jumping)
+            // Jump en l'air avec coyote time
             else if (coyoteTimeCounter > 0f && !hasJumpedSinceGrounded)
             {
                 isJumping = true;
-                hasJumpedSinceGrounded = true; // Set this to true so you can't abuse coyote time
                 coyoteTimeCounter = 0f;
             }
-            // 3. Double Jump / Air Jump (Available anytime in mid-air up to maxAirJumps)
-            else if (airJumpCounter < maxAirJumps)
+            // NOUVEAU - Double jump en l'air
+            else if (!isGrounded && airJumpCounter < maxAirJumps && GameManager.instance.itemBouteille_Ramasse == true)
             {
                 isJumping = true;
                 airJumpCounter++;
                 Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
             }
-            // 4. Wall jump
+            // Wall jump
             else if (isOnWall && !isGrounded)
             {
                 isJumping = true;
@@ -141,7 +140,9 @@ public class PlayerMovement : MonoBehaviour
 
         Flip(rb.linearVelocity.x);
 
+        // LOGS POUR DEBUG
         float speedValue = Mathf.Abs(rb.linearVelocity.x);
+        Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
 
         if (animator != null)
         {
@@ -281,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
         else 
         {
             animator.SetBool("Alt", true);
-            if (rb.linearVelocity.y > 0)
+            if (rb.linearVelocityY > 0)
             {
                 animator.SetTrigger("Jump");
             }
@@ -317,11 +318,13 @@ public class PlayerMovement : MonoBehaviour
         {
             isOnWall = true;
             wallSide = 1;
+            Debug.Log("Mur GAUCHE");
         }
         else if (rightWallDetect.Length > 0)
         {
             isOnWall = true;
             wallSide = -1;
+            Debug.Log("Mur DROITE");
         }
         else
         {
