@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float grappleForce = 25f;
 
     // Variables internes
+    private bool hasJumpedSinceGrounded;
     private bool isSprinting = false;
     private bool isGrappling = false;
     private bool isJumping;
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             coyoteTimeCounter = coyoteTime;
             airJumpCounter = 0; // NOUVEAU - réinitialise le compteur au sol
+            hasJumpedSinceGrounded = false;
         }
         else
         {
@@ -87,29 +89,26 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 isJumping = true;
+                hasJumpedSinceGrounded = true;
                 coyoteTimeCounter = 0f;
             }
             // Jump en l'air avec coyote time
-            else if (coyoteTimeCounter > 0f && !isJumping)
+            else if (coyoteTimeCounter > 0f && !hasJumpedSinceGrounded)
             {
                 isJumping = true;
                 coyoteTimeCounter = 0f;
             }
             // NOUVEAU - Double jump en l'air
-            // NOUVEAU - Double jump en l'air (SEULEMENT si le buff bouteille est activé)
-            else if (!isGrounded && airJumpCounter < maxAirJumps)
+            else if (!isGrounded && airJumpCounter < maxAirJumps && GameManager.instance.itemBouteille_Ramasse == true)
             {
-                // Vérif si la bouteille est ramassée
-                if (GameManager.instance != null && GameManager.instance.itemBouteille_Ramasse)
-                {
-                    isJumping = true;
-                    airJumpCounter++;
-                    Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
-                }
-                else
-                {
-                    Debug.Log("Double jump non disponible - Ramasse d'abord la bouteille!");
-                }
+                isJumping = true;
+                airJumpCounter++;
+                Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
+            }
+            // Wall jump
+            else if (isOnWall && !isGrounded)
+            {
+                isJumping = true;
             }
         }
 
@@ -143,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
         // LOGS POUR DEBUG
         float speedValue = Mathf.Abs(rb.linearVelocity.x);
-        //Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
+        Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
 
         if (animator != null)
         {
@@ -151,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("ANIMATOR EST NULL !");
+            Debug.LogError("ANIMATOR EST NULL !");
         }
     }
 
@@ -253,10 +252,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 
-                // NOUVEAU - Consomme oxygène
-                if (oxygenManager != null)
-                    oxygenManager.ConsumeOxygenForJump();
-
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             else if (isOnWall && !isGrounded)
@@ -267,21 +262,13 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = wallJumpX;
                 isOnWall = false;
 
-                // NOUVEAU - Consomme oxygène pour wall jump
-                if (oxygenManager != null)
-                    oxygenManager.ConsumeOxygenForWallJump();
-
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             else // COYOTE JUMP ou AIR JUMP (DOUBLE JUMP)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-
-                // NOUVEAU - Consomme oxygène pour double jump
-                if (oxygenManager != null)
-                    oxygenManager.ConsumeOxygenForDoubleJump();
-
+                
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             isJumping = false;
@@ -292,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Alt", false);
         }
-        else
+        else 
         {
             animator.SetBool("Alt", true);
             if (rb.linearVelocityY > 0)
