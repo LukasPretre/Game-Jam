@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask collisionLayers;
     public LayerMask wallLayers;
+    public int maxAirJumps = 1; // NOUVEAU - nombre de jumps en l'air (1 = double jump)
 
     [Header("Swing & Grapple")]
     public float swingForce = 15f;
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private int wallSide;
     private float horizontalMovement;
     private float currentSpeed = 0f;
+    private int airJumpCounter = 0; // NOUVEAU - compteur de jumps en l'air
     public BoxCollider2D leftWallCollider;
     public BoxCollider2D rightWallCollider;
     public float coyoteTime = 0.2f;
@@ -67,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
+            airJumpCounter = 0; // NOUVEAU - réinitialise le compteur au sol
         }
         else
         {
@@ -91,6 +94,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 isJumping = true;
                 coyoteTimeCounter = 0f;
+            }
+            // NOUVEAU - Double jump en l'air
+            else if (!isGrounded && airJumpCounter < maxAirJumps)
+            {
+                isJumping = true;
+                airJumpCounter++;
+                Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
             }
             // Wall jump
             else if (isOnWall && !isGrounded)
@@ -129,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 
         // LOGS POUR DEBUG
         float speedValue = Mathf.Abs(rb.linearVelocity.x);
-        Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
+        //Debug.Log("RB velocity X: " + rb.linearVelocity.x + " | Speed value: " + speedValue + " | Animator null: " + (animator == null));
 
         if (animator != null)
         {
@@ -137,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ANIMATOR EST NULL !");
+            //Debug.LogError("ANIMATOR EST NULL !");
         }
     }
 
@@ -239,6 +249,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 
+                // NOUVEAU - Consomme oxygène
+                if (oxygenManager != null)
+                    oxygenManager.ConsumeOxygenForJump();
+
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             else if (isOnWall && !isGrounded)
@@ -249,13 +263,21 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = wallJumpX;
                 isOnWall = false;
 
+                // NOUVEAU - Consomme oxygène pour wall jump
+                if (oxygenManager != null)
+                    oxygenManager.ConsumeOxygenForWallJump();
+
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
-            else // COYOTE JUMP
+            else // COYOTE JUMP ou AIR JUMP (DOUBLE JUMP)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                
+
+                // NOUVEAU - Consomme oxygène pour double jump
+                if (oxygenManager != null)
+                    oxygenManager.ConsumeOxygenForDoubleJump();
+
                 AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             isJumping = false;
@@ -266,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Alt", false);
         }
-        else 
+        else
         {
             animator.SetBool("Alt", true);
             if (rb.linearVelocityY > 0)
@@ -287,7 +309,6 @@ public class PlayerMovement : MonoBehaviour
         rope.LaunchRope(ropeDirection);
     }
 
-    // NOUVEAU - Lancer le grappin
     void LaunchGrapple()
     {
         Vector3 grappleDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;

@@ -20,6 +20,11 @@ public class OxygenManager : MonoBehaviour
     public float baseConsumption = 1f;
     public float velocityImpact = 0.05f;
 
+    [Header("Consommation des sauts")] // NOUVEAU
+    public float jumpConsumption = 1f; // Oxygène consommé par saut
+    public float wallJumpConsumption = 1.5f; // Wall jump consomme plus
+    public float doubleJumpConsumption = 1.2f; // Double jump
+
     [Header("Interface Graphique UI")]
     public Slider oxygenBar;
 
@@ -109,6 +114,40 @@ public class OxygenManager : MonoBehaviour
         {
             oxygenBar.value = currentOxygen;
         }
+    }
+
+    // NOUVEAU - Consomme l'oxygène pour un saut normal
+    public void ConsumeOxygenForJump(float amount = -1)
+    {
+        if (amount < 0) amount = jumpConsumption;
+
+        currentOxygen -= amount;
+        Debug.Log("Saut! Oxygène consommé: " + amount + " | Oxygène restant: " + currentOxygen);
+
+        if (currentOxygen <= 0)
+        {
+            currentOxygen = 0;
+            Die();
+        }
+
+        if (oxygenBar != null)
+        {
+            oxygenBar.value = currentOxygen;
+        }
+    }
+
+    // NOUVEAU - Consomme l'oxygène pour un wall jump
+    public void ConsumeOxygenForWallJump()
+    {
+        ConsumeOxygenForJump(wallJumpConsumption);
+        Debug.Log("Wall Jump! Oxygène consommé: " + wallJumpConsumption);
+    }
+
+    // NOUVEAU - Consomme l'oxygène pour un double jump
+    public void ConsumeOxygenForDoubleJump()
+    {
+        ConsumeOxygenForJump(doubleJumpConsumption);
+        Debug.Log("Double Jump! Oxygène consommé: " + doubleJumpConsumption);
     }
 
     // Retourne un ratio entre 0 et 1 pour le PlayerMovement
@@ -225,7 +264,6 @@ public class OxygenManager : MonoBehaviour
         // Sinon, s'il est mort en tombant super vite, il réapparaîtra à l'étang en tombant à la même vitesse !
         if (rb != null)
         {
-            // Note pour Unity 6 : on utilise linearVelocity au lieu de velocity
             rb.linearVelocity = Vector2.zero;
         }
     }

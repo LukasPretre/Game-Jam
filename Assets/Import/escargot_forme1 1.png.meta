@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db082b41700b72347a5615d855fbdf24
+guid: 5e532fd2835f4e24c9bedbff86e6dd8b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6850352397346096737
-    second: MainMenuBackground_0
+      213: 4262836810636435042
+    second: escargot_forme1 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainMenuBackground_0
+      name: escargot_forme1 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2816
-        height: 1536
+        x: 33
+        y: 5
+        width: 346
+        height: 347
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1664f0ee537511f50800000000000000
-      internalID: 6850352397346096737
+      spriteID: 26e91796e73a82b30800000000000000
+      internalID: 4262836810636435042
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MainMenuBackground_0: 6850352397346096737
+      escargot_forme1 1_0: 4262836810636435042
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
