@@ -90,22 +90,26 @@ public class PlayerMovement : MonoBehaviour
                 coyoteTimeCounter = 0f;
             }
             // Jump en l'air avec coyote time
-            else if (coyoteTimeCounter > 0f)
+            else if (coyoteTimeCounter > 0f && !isJumping)
             {
                 isJumping = true;
                 coyoteTimeCounter = 0f;
             }
             // NOUVEAU - Double jump en l'air
+            // NOUVEAU - Double jump en l'air (SEULEMENT si le buff bouteille est activé)
             else if (!isGrounded && airJumpCounter < maxAirJumps)
             {
-                isJumping = true;
-                airJumpCounter++;
-                Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
-            }
-            // Wall jump
-            else if (isOnWall && !isGrounded)
-            {
-                isJumping = true;
+                // Vérif si la bouteille est ramassée
+                if (GameManager.instance != null && GameManager.instance.itemBouteille_Ramasse)
+                {
+                    isJumping = true;
+                    airJumpCounter++;
+                    Debug.Log("Air Jump " + airJumpCounter + "/" + maxAirJumps);
+                }
+                else
+                {
+                    Debug.Log("Double jump non disponible - Ramasse d'abord la bouteille!");
+                }
             }
         }
 
