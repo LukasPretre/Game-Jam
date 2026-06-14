@@ -1932,6 +1932,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1034697857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5745044229585662114, guid: 32b131fef607c694cba93d6ef27bb5c8, type: 3}
+  m_PrefabInstance: {fileID: 1269200454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1034697861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034697857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7779878d4e99254dab3afe95b7e6f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowGrappin
 --- !u!1 &1091044064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,7 +2323,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 940219642928587567, guid: 32b131fef607c694cba93d6ef27bb5c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1361499118}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5745044229585662114, guid: 32b131fef607c694cba93d6ef27bb5c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1034697861}
   m_SourcePrefab: {fileID: 100100000, guid: 32b131fef607c694cba93d6ef27bb5c8, type: 3}
 --- !u!1 &1361499117
 GameObject:
@@ -3018,6 +3038,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1884779197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 782522417284615481, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
+  m_PrefabInstance: {fileID: 7709930639356325016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1884779202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884779197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c2431b3e564644bbbd1981d2964fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueBox: {fileID: 1361499119}
 --- !u!1 &1910606017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3435,11 +3473,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 289283077237792345, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.79
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: 289283077237792345, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.996
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 289283077237792345, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3475,16 +3513,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 782522417284615481, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
       propertyPath: m_Name
-      value: BouteilleOxygene
+      value: Grappin
       objectReference: {fileID: 0}
     - target: {fileID: 7875633463696233996, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
       propertyPath: nomDeLaVariable
       value: Grappin
       objectReference: {fileID: 0}
+    - target: {fileID: 8675054441405536381, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3922252516456836621, guid: 7428088e3e0ffbd4bac603aa56f2ef87, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 782522417284615481, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1884779202}
   m_SourcePrefab: {fileID: 100100000, guid: f48239bf36b46bc408cf8cc4953cfcd9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
