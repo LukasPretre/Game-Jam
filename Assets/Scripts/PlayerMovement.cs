@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -47,12 +48,20 @@ public class PlayerMovement : MonoBehaviour
     public BoxCollider2D rightWallCollider;
     public float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
+    private float footstepTimer;
+    private float lastStepTime;
 
-
+    [Header("Audio")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip walkingSound;
+    [SerializeField] private float footstepInterval = 1.2f;
 
     void Update()
     {
         horizontalMovement = Input.GetAxis("Horizontal");
+
+        HandleFootsteps();
+
         isSprinting = Input.GetKey(KeyCode.LeftShift);
 
         if (isGrounded)
@@ -229,7 +238,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                
+
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             else if (isOnWall && !isGrounded)
             {
@@ -238,13 +248,15 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector2(wallJumpX, jumpForce), ForceMode2D.Impulse);
                 currentSpeed = wallJumpX;
                 isOnWall = false;
-                
+
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             else // COYOTE JUMP
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
             isJumping = false;
         }
@@ -341,5 +353,21 @@ public class PlayerMovement : MonoBehaviour
             Handles.Label(transform.position + Vector3.up * 2.5f, speedText);
         }
 #endif
+    }
+
+    private void HandleFootsteps()
+    {
+        bool isMoving = isGrounded && Mathf.Abs(horizontalMovement) > 0.1f;
+
+        if (isMoving)
+        {
+            float currentInterval = isSprinting ? footstepInterval / 1.6f : footstepInterval;
+
+            if (Time.time - lastStepTime > currentInterval)
+            {
+                AudioSource.PlayClipAtPoint(walkingSound, transform.position, UnityEngine.Random.Range(0.2f, 6f));
+                lastStepTime = Time.time;
+            }
+        }
     }
 }

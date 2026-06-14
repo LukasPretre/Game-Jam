@@ -29,6 +29,10 @@ public class OxygenManager : MonoBehaviour
     private Animator anim;
     public bool isDying = false;
 
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip waterSound;
+
     void Start()
     {
         if (oxygenBar == null)
@@ -118,6 +122,7 @@ public class OxygenManager : MonoBehaviour
         if (collision.CompareTag("Water"))
         {
             isInWatter = true;
+            AudioSource.PlayClipAtPoint(waterSound, transform.position);
             Debug.Log("Le kamtar est dans l'eau");
         }
     }
@@ -138,6 +143,8 @@ public class OxygenManager : MonoBehaviour
 
         isDying = true;
         Debug.Log("Lancement de l'animation de mort...");
+
+        AudioSource.PlayClipAtPoint(deathSound, transform.position);
 
         // 1. On coupe la physique pour que le joueur fige sur place (il ne tombe plus)
         if (rb != null)
@@ -187,6 +194,7 @@ public class OxygenManager : MonoBehaviour
 
     public void LoseOxygen(float damageAmount)
     {
+        AudioSource.PlayClipAtPoint(hitSound, transform.position, 1f);
         currentOxygen -= damageAmount;
         Debug.Log("Le kamtar a touché un ver, on perd " + damageAmount + " d'oxygène !");
 
